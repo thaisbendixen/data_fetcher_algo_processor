@@ -93,7 +93,7 @@ To build and run the containers:
    ```
 
 Use your favourite API client (ex. [Postman](https://www.postman.com/)) to connect to the APIs and find the
-swagger documentation in http://localhost:8085/ and http://0.0.0.0:8086/docs.
+swagger documentation in http://localhost:8085/docs and http://0.0.0.0:8086/docs.
 
 Please find the url mappings of the available APIs below:
 
