@@ -76,7 +76,6 @@ class Landsat8DatasetFetcher(DatasetFetcher):
         band_id: List[Literal["blue", "green", "red", "nir08", "swir16", "swir22"]],
         file_path: str,
     ) -> str:
-        breakpoint()
         if not item_id:
             raise Exception()
 
@@ -84,8 +83,6 @@ class Landsat8DatasetFetcher(DatasetFetcher):
         band_name = BAND_MAP.get(band_id)
         band_href = item_collection.features[0].assets[band_name]["href"]
 
-        breakpoint()
         open_write_href(href=band_href, file_path=file_path)
 
-        breakpoint()
         return file_path

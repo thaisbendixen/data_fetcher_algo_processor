@@ -41,10 +41,13 @@ def open_write_href(href: str, file_path: str):
         aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
         aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
     )
+    breakpoint()
     with rio.Env(aws_session):
         with rio.open(href) as src:
+            breakpoint()
             band_array = src.read()
             profile = src.profile
+            breakpoint()
             with rio.open(file_path, "w", **profile) as dst:
                 dst.write(band_array)
 
