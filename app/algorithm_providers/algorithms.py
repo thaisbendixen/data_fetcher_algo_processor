@@ -40,7 +40,11 @@ class NDVIProcessor(AlgoProcessor):
                 f"/download/{collection}/{item_id}/band/nir",
             ]:
                 band_url = DataAppSettings().url + url
+
                 response = requests.get(band_url)
+
+                if response.status_code != 200:
+                    raise HTTPException(response.status_code, detail=response.text)
 
                 with TemporaryDirectory() as tmpdirname:
                     with open(f"{tmpdirname}/temp.tif", "wb") as f:

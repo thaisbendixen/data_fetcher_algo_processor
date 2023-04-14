@@ -226,6 +226,10 @@ Example running NDVI on specific sentinel-2 scene:
     --output 's2_NDVI.png'
    ```
 
+#### Disclaimer
+There seem to be some issues permission issues with fetching Landsat-8 data from AWS. I currently can't explore the
+issues further and will add the issue to the Roadmap.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -253,6 +257,7 @@ To run pytest:
 <!-- ROADMAP -->
 ## Roadmap
 
+- [ ] Resolve access to Landsat-8 AWS bucket issue (access is denied)
 - [ ] Add and improve exception handling
 - [ ] Add mock tests
 - [ ] Add more tests (ex. tests for each endpoint, tests for exceptions and tests with different params)

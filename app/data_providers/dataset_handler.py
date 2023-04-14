@@ -8,7 +8,7 @@ from app.data_providers.sentinel2 import Sentinel2DatasetFetcher
 
 DATASET_MAP = {
     "sentinel-2": Sentinel2DatasetFetcher,
-    "landsat8": Landsat8DatasetFetcher,
+    "landsat-8": Landsat8DatasetFetcher,
 }
 
 
