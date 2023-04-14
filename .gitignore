@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# pycharm
+.idea/
+
+# Distribution / packaging
+.Python
+
+# Unit test / coverage reports
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# myoy
+.mypy_cache
+
+# others
+.DS_Store

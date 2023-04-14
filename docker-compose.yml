@@ -1,0 +1,17 @@
+version: "3.4"
+services:
+  data-algo-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: data-algo-api
+    env_file:
+      - .env
+    environment:
+      - AWS_ACCESS_KEY_ID:${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY:${AWS_SECRET_ACCESS_KEY}
+    ports:
+      - "8085:8085"
+      - "8086:8086"
+    volumes:
+      - .:/app
