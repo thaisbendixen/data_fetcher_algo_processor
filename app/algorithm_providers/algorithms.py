@@ -1,3 +1,4 @@
+from tempfile import TemporaryDirectory
 from typing import List, Literal
 
 import matplotlib.pyplot as plt
@@ -27,8 +28,8 @@ class NDVIProcessor(AlgoProcessor):
                 )
 
             for path in [
-                "./tests/sample_data/sentinel2_B04.tif",
-                "./tests/sample_data/sentinel2_B08.tif",
+                "./tests/sample_data/s2_B04_clipped.tif",
+                "./tests/sample_data/s2_B08_clipped.tif",
             ]:
                 with rio.open(path) as src:
                     array = src.read()
@@ -39,11 +40,15 @@ class NDVIProcessor(AlgoProcessor):
                 f"/download/{collection}/{item_id}/band/nir",
             ]:
                 band_url = DataAppSettings().url + url
-                response = await requests.get(band_url)
-                file = response.content
-                with rio.open(file) as src:
-                    array = src.read()
-                    list_arrays.append(array)
+                response = requests.get(band_url)
+
+                with TemporaryDirectory() as tmpdirname:
+                    with open(f"{tmpdirname}/temp.tif", "wb") as f:
+                        f.write(response.content)
+
+                    with rio.open(f"{tmpdirname}/temp.tif") as src:
+                        array = src.read()
+                        list_arrays.append(array)
 
         return list_arrays
 

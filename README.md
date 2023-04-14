@@ -254,12 +254,13 @@ To run pytest:
 ## Roadmap
 
 - [ ] Add and improve exception handling
-- [ ] Add more tests (ex. tests for each endpoint and tests for exceptions)
 - [ ] Add mock tests
+- [ ] Add more tests (ex. tests for each endpoint, tests for exceptions and tests with different params)
+- [ ] Add logger statements
 - [ ] Run mypy on code
-- [ ] Reduce size of inflated Docker image, which is almost 2GB (ex. remove some dependencies\)
+- [ ] Reduce size of inflated Docker image, which is almost 2GB (by reducing dependencies for example)
 - [ ] Improve response speed of endpoints
 - [ ] Enable clipping scenes
-- [ ] Find better solution to avoid saving files (see [here](https://github.com/thaisbendixen/data_fetcher_algo_processor/blob/63190da26449d4fcb5b5545d06c7f4318cedcb22/app/services/algo_app.py#L13) and [here](https://github.com/thaisbendixen/data_fetcher_algo_processor/blob/63190da26449d4fcb5b5545d06c7f4318cedcb22/app/services/data_app.py#L14)))
+- [ ] Find better solution to avoid saving files (see [here](https://github.com/thaisbendixen/data_fetcher_algo_processor/blob/63190da26449d4fcb5b5545d06c7f4318cedcb22/app/services/algo_app.py#L13) and [here](https://github.com/thaisbendixen/data_fetcher_algo_processor/blob/63190da26449d4fcb5b5545d06c7f4318cedcb22/app/services/data_app.py#L14))
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

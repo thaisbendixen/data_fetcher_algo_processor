@@ -1,5 +1,5 @@
 import os
-from typing import List, Literal, Optional
+from typing import Literal, Optional
 
 import boto3
 import rasterio as rio
@@ -73,7 +73,7 @@ class Landsat8DatasetFetcher(DatasetFetcher):
     async def download_band(
         self,
         item_id: str,
-        band_id: List[Literal["blue", "green", "red", "nir08", "swir16", "swir22"]],
+        band_id: Literal["blue", "green", "red", "nir08", "swir16", "swir22"],
         file_path: str,
     ) -> str:
         if not item_id:
