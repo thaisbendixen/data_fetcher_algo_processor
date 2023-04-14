@@ -84,10 +84,8 @@ class Sentinel2DatasetFetcher(DatasetFetcher):
     async def download_tci(self, item_id: str, file_path: str) -> str:
         item_collection = await self.search(item_id=item_id)
         tci_href = item_collection.features[0].assets["visual"]["href"]
-        breakpoint()
         open_write_href(href=tci_href, file_path=file_path)
 
-        breakpoint()
         return file_path
 
     async def download_band(

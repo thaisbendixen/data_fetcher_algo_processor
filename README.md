@@ -46,11 +46,11 @@ manager (ex. [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)).
 ### Optional requisites
 
 The data API relies on AWS, which means you need to have AWS credentials. If you don't want to create AWS credentials,
-your access to the APIs will be restricted to search and running algorithms on sample data. Information on how to 
-create an account can be found [here]([pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv))). You'll need 
-to store your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in the [.env dile](.env) for running the APIs with Docker. 
-If you are a developer make sure to also add them to your local environment variables. For creating the AWS 
-credentials I found [this](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon) 
+your access to the APIs will be restricted to search and running algorithms on sample data. Information on how to
+create an account can be found [here]([pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv))). You'll need
+to store your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in the [.env dile](.env) for running the APIs with Docker.
+If you are a developer make sure to also add them to your local environment variables. For creating the AWS
+credentials I found [this](https://stackoverflow.com/questions/21440709/how-do-i-get-aws-access-key-id-for-amazon)
 stackoverflow thread helpful.
 
 ### Installation
@@ -210,8 +210,8 @@ Example search:
        "datetime": "2017-06-01T00:00:00Z/2018-06-30T23:59:59Z"
    }'
    ```
-Each 
-search returns a FeatureCollection, where each Feature has an id. This id can be used to download or run algorithms 
+Each
+search returns a FeatureCollection, where each Feature has an id. This id can be used to download or run algorithms
 on specific scenes:
 
 Example download True Color Image:
@@ -232,8 +232,8 @@ Example running NDVI on specific sentinel-2 scene:
 <!-- DEVELOPERS -->
 ## Developers
 
-This code base already included a few unit test, but more tests, including mock tests, should be added when possible. 
-Please be aware the tests are live test, which are making requests to a provider API, they will fail if 
+This code base already included a few unit test, but more tests, including mock tests, should be added when possible.
+Please be aware the tests are live test, which are making requests to a provider API, they will fail if
 AWS credentials are not setup.
 
 Run APIs on local machine:
@@ -260,6 +260,6 @@ To run pytest:
 - [ ] Reduce size of inflated Docker image, which is almost 2GB (ex. remove some dependencies\)
 - [ ] Improve response speed of endpoints
 - [ ] Enable clipping scenes
-- [ ] Find better solution to avoid saving files
+- [ ] Find better solution to avoid saving files (see [here](https://github.com/thaisbendixen/data_fetcher_algo_processor/blob/63190da26449d4fcb5b5545d06c7f4318cedcb22/app/services/algo_app.py#L13) and [here](https://github.com/thaisbendixen/data_fetcher_algo_processor/blob/63190da26449d4fcb5b5545d06c7f4318cedcb22/app/services/data_app.py#L14)))
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
