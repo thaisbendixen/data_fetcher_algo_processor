@@ -41,12 +41,16 @@ def open_write_href(href: str, file_path: str):
         aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
         aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
     )
-    with rio.Env(aws_session):
-        with rio.open(href) as src:
-            band_array = src.read()
-            profile = src.profile
-            with rio.open(file_path, "w", **profile) as dst:
-                dst.write(band_array)
+    try:
+        with rio.Env(aws_session):
+            with rio.open(href) as src:
+                band_array = src.read()
+                profile = src.profile
+                with rio.open(file_path, "w", **profile) as dst:
+                    dst.write(band_array)
+
+    except Exception as e:
+        raise HTTPException(400, detail=e.__repr__())
 
 
 class Sentinel2DatasetFetcher(DatasetFetcher):

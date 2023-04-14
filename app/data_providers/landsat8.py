@@ -26,12 +26,16 @@ def open_write_href(href: str, file_path: str):
         aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
         aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
     )
-    with rio.Env(aws_session):
-        with rio.open(href) as src:
-            band_array = src.read()
-            profile = src.profile
-            with rio.open(file_path, "w", **profile) as dst:
-                dst.write(band_array)
+    try:
+        with rio.Env(aws_session):
+            with rio.open(href) as src:
+                band_array = src.read()
+                profile = src.profile
+                with rio.open(file_path, "w", **profile) as dst:
+                    dst.write(band_array)
+
+    except Exception as e:
+        raise HTTPException(400, detail=e.__repr__())
 
 
 class Landsat8DatasetFetcher(DatasetFetcher):
@@ -81,7 +85,9 @@ class Landsat8DatasetFetcher(DatasetFetcher):
 
         item_collection = await self.search(item_id=item_id)
         band_name = BAND_MAP.get(band_id)
-        band_href = item_collection.features[0].assets[band_name]["href"]
+        band_href = item_collection.features[0].assets[band_name]["alternate"]["s3"][
+            "href"
+        ]
 
         open_write_href(href=band_href, file_path=file_path)
 
