@@ -1,7 +1,9 @@
 <!-- ABOUT THE PROJECT -->
+
 # Open source data fetcher and algorithm runner
 
 <!-- TABLE OF CONTENTS -->
+
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -17,26 +19,68 @@
   </ol>
 </details>
 
-
-
 <!-- PROJECT DESCRIPTION -->
+
 ## Project Description
 
 Creates two APIs responsible for fetching and processing open source satellite data (ex. Sentinel-2 or Landat8). The
 data API can be extended with new datasets/sensors, currently only Sentinel-2 and Landsat8 are provided. The algorithm API,
 currently only provides NDVI algorithm but can also be extended. Please be aware that this repo is a
-work and progress. Refer to <a href="#roadmap">Roadmap</a> to see next steps for project.
+work and progress. Refer to Roadmap to see next steps for project.
+
+Please find the repository overview below:
+```bash
+.
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── app
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── algorithm_providers
+│   │   ├── __init__.py
+│   │   ├── algorithm_handler.py
+│   │   └── algorithms.py
+│   ├── common
+│   │   ├── __init__.py
+│   │   ├── interfaces.py
+│   │   └── models.py
+│   ├── config.py
+│   ├── data_providers
+│   │   ├── __init__.py
+│   │   ├── dataset_handler.py
+│   │   ├── landsat8.py
+│   │   └── sentinel2.py
+│   └── services
+│       ├── __init__.py
+│       ├── algo_app.py
+│       └── data_app.py
+├── docker-compose.yml
+├── poetry.lock
+├── pyproject.toml
+└── tests
+    ├── conftest.py
+    ├── sample_data
+    │   ├── s2_B04_clipped.tif
+    │   └── s2_B08_clipped.tif
+    ├── test_algorithm_providers.py
+    └── test_data_providers.py
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To setup your work environment and run the code please follow the instructions below.
 
 <!-- PRE-REQUISITES -->
+
 ### Pre-requisites
+
 For running this code you will need the following tools:
+
 * Python ^3.9.
 * [Docker](https://docs.docker.com/get-docker/)
 
@@ -59,38 +103,46 @@ The steps below are only required if you would like to run the code on your loca
 container. If you wish to only run the code within the docker container, please skip the steps below.
 
 Install poetry (see documentation [here](https://python-poetry.org/docs/)):
-   ```sh
-   curl -sSL https://install.python-poetry.org | python3 -
-   ```
+
+```sh
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
 To install the defined dependencies for your project run:
-   ```sh
-   poetry install --without dev
-   ```
+
+```sh
+poetry install --without dev
+```
 
 ### Installation for developers
+
 Install development dependencies packages:
-   ```sh
-   poetry install
-   ```
+
+```sh
+poetry install
+```
 
 Install [pre-commit hook](https://pre-commit.com/) and existing pre-commit file (required github account and CLI):
-   ```sh
-   brew install pre-commit
-   pre-commit install
-   ```
+
+```sh
+brew install pre-commit
+pre-commit install
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 To containerise the services and all Its dependencies we used [Docker](https://docs.docker.com/get-docker/).
 We will use `docker-compose up` which orchestrates multiple containers for our APIs.
 
 To build and run the containers:
-   ```sh
-   docker-compose up
-   ```
+
+```sh
+docker-compose up
+```
 
 Use your favourite API client (ex. [Postman](https://www.postman.com/)) to connect to the APIs and find the
 swagger documentation in http://localhost:8085/docs and http://0.0.0.0:8086/docs.
@@ -106,134 +158,141 @@ If you **don't have AWS credentials** you won't be able to download data. Theref
 with the Data API and running algorithms only on sentinel-2 sample data. See examples:
 
 Example search:
-   ```sh
-   curl --location 'http://0.0.0.0:8085/search/sentinel-2' \
-   --header 'Content-Type: application/json' \
-   --data '{
-       "credentials": {
-           "account_id": "some account id",
-           "password": "some key"
-       },
-       "intersects": {
-           "type": "Polygon",
-           "coordinates": [
-               [
-                   [
-                       13.205264482787868,
-                       52.53399625652757
-                   ],
-                   [
-                       13.201874500639157,
-                       52.53035726947937
-                   ],
-                   [
-                       13.197086887762731,
-                       52.531700552397666
-                   ],
-                   [
-                       13.197084126899975,
-                       52.53176794506914
-                   ],
-                   [
-                       13.201488372876756,
-                       52.53601584214123
-                   ],
-                   [
-                       13.201488580428844,
-                       52.53601584529632
-                   ],
-                   [
-                       13.205264482787868,
-                       52.53399625652757
-                   ]
-               ]
-           ]
-       },
-       "datetime": "2019-06-01T00:00:00Z/2020-06-30T23:59:59Z"
-   }'
-   ```
+
+```sh
+curl --location 'http://0.0.0.0:8085/search/sentinel-2' \
+--header 'Content-Type: application/json' \
+--data '{
+    "credentials": {
+        "account_id": "some account id",
+        "password": "some key"
+    },
+    "intersects": {
+        "type": "Polygon",
+        "coordinates": [
+            [
+                [
+                    13.205264482787868,
+                    52.53399625652757
+                ],
+                [
+                    13.201874500639157,
+                    52.53035726947937
+                ],
+                [
+                    13.197086887762731,
+                    52.531700552397666
+                ],
+                [
+                    13.197084126899975,
+                    52.53176794506914
+                ],
+                [
+                    13.201488372876756,
+                    52.53601584214123
+                ],
+                [
+                    13.201488580428844,
+                    52.53601584529632
+                ],
+                [
+                    13.205264482787868,
+                    52.53399625652757
+                ]
+            ]
+        ]
+    },
+    "datetime": "2019-06-01T00:00:00Z/2020-06-30T23:59:59Z"
+}'
+```
 
 Example of running algorithm on sample data:
-   ```sh
-   curl --location 'http://0.0.0.0:8086/sentinel-2/sample/ndvi' \
-    --output 's2_sample_NDVI.png'
-   ```
+
+```sh
+curl --location 'http://0.0.0.0:8086/sentinel-2/sample/ndvi' \
+ --output 's2_sample_NDVI.png'
+```
 
 #### With AWS credentials
 
 If you **have AWS credentials** you can search and download data, as well as run algorithms on top of data. See below:
 
 Example search:
-   ```sh
-   curl --location 'http://0.0.0.0:8085/search/sentinel-2' \
-   --header 'Content-Type: application/json' \
-   --data '{
-       "credentials": {
-           "account_id": "some account id",
-           "password": "some key"
-       },
-       "intersects": {
-           "type": "Polygon",
-           "coordinates": [
-               [
-                   [
-                       13.205264482787868,
-                       52.53399625652757
-                   ],
-                   [
-                       13.201874500639157,
-                       52.53035726947937
-                   ],
-                   [
-                       13.197086887762731,
-                       52.531700552397666
-                   ],
-                   [
-                       13.197084126899975,
-                       52.53176794506914
-                   ],
-                   [
-                       13.201488372876756,
-                       52.53601584214123
-                   ],
-                   [
-                       13.201488580428844,
-                       52.53601584529632
-                   ],
-                   [
-                       13.205264482787868,
-                       52.53399625652757
-                   ]
-               ]
-           ]
-       },
-       "datetime": "2017-06-01T00:00:00Z/2018-06-30T23:59:59Z"
-   }'
-   ```
+
+```sh
+curl --location 'http://0.0.0.0:8085/search/sentinel-2' \
+--header 'Content-Type: application/json' \
+--data '{
+    "credentials": {
+        "account_id": "some account id",
+        "password": "some key"
+    },
+    "intersects": {
+        "type": "Polygon",
+        "coordinates": [
+            [
+                [
+                    13.205264482787868,
+                    52.53399625652757
+                ],
+                [
+                    13.201874500639157,
+                    52.53035726947937
+                ],
+                [
+                    13.197086887762731,
+                    52.531700552397666
+                ],
+                [
+                    13.197084126899975,
+                    52.53176794506914
+                ],
+                [
+                    13.201488372876756,
+                    52.53601584214123
+                ],
+                [
+                    13.201488580428844,
+                    52.53601584529632
+                ],
+                [
+                    13.205264482787868,
+                    52.53399625652757
+                ]
+            ]
+        ]
+    },
+    "datetime": "2017-06-01T00:00:00Z/2018-06-30T23:59:59Z"
+}'
+```
+
 Each
 search returns a FeatureCollection, where each Feature has an id. This id can be used to download or run algorithms
 on specific scenes:
 
 Example download True Color Image:
-   ```sh
-   curl --location 'http://0.0.0.0:8085/download/sentinel-2/S2A_33UUU_20180628_0_L2A/tci' \
-    --output 's2_TCI.tif'
-   ```
+
+```sh
+curl --location 'http://0.0.0.0:8085/download/sentinel-2/S2A_33UUU_20180628_0_L2A/tci' \
+ --output 's2_TCI.tif'
+```
 
 Example running NDVI on specific sentinel-2 scene:
-   ```sh
-   curl --location 'http://0.0.0.0:8086/sentinel-2/S2A_33UUU_20180628_0_L2A/ndvi' \
-    --output 's2_NDVI.png'
-   ```
+
+```sh
+curl --location 'http://0.0.0.0:8086/sentinel-2/S2A_33UUU_20180628_0_L2A/ndvi' \
+ --output 's2_NDVI.png'
+```
 
 #### Disclaimer
+
 There seem to be some issues permission issues with fetching Landsat-8 data from AWS. I currently can't explore the
 issues further and will add the issue to the Roadmap.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 <!-- DEVELOPERS -->
+
 ## Developers
 
 This code base already included a few unit test, but more tests, including mock tests, should be added when possible.
@@ -241,20 +300,21 @@ Please be aware the tests are live test, which are making requests to a provider
 AWS credentials are not setup.
 
 Run APIs on local machine:
-   ```sh
-   python -m app
-   ```
+
+```sh
+python -m app
+```
 
 To run pytest:
-   ```sh
-   python -m pytest
-   ```
+
+```sh
+python -m pytest
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- ROADMAP -->
+
 ## Roadmap
 
 - [ ] Resolve access to Landsat-8 AWS bucket issue (access is denied)
